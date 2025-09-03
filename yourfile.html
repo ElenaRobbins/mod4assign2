@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Support Ticket Form</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<form id="supportForm">
+  ReqDate: <input type="date" id="reqDate"><br>
+  EmpID: <input type="text" id="EmpID"><br>
+  FName: <input type="text" id="FName"><br>
+  LName: <input type="text" id="LName"><br>
+  ProbDesc: <textarea id="ProbDesc"></textarea><br>
+  <button type="button" id="btnSubmit">Submit</button>
+</form>
+
+<div id="errorMsg" style="color:red;"></div>
+<div id="timestamp"></div>
+
+<script>
+$(document).ready(function() {
+  // Submit button click
+  $('#btnSubmit').click(function() {
+
+    if (formValidate()) {
+      alert('Form is valid! Sending data...');
+    } else {
+      $('#errorMsg').text('Please fill all required fields.');
+      $('#reqDate, #EmpID, #FName, #LName, #ProbDesc').val('');
+    }
+    // Create timestamp
+    var timestamp = new Date().toLocaleString();
+    $('#timestamp').text('Submitted at: ' + timestamp);
+    // Dim the button
+    $(this).css('opacity', '0.5');
+  });
+
+  // Hover effect on button
+  $('#btnSubmit').hover(
+    function() {
+      $(this).css({'color': 'red', 'font-weight': 'bold'});
+    },
+    function() {
+      $(this).css({'color': '', 'font-weight': ''});
+    }
+  );
+
+  // formValidate function (simple check)
+  function formValidate() {
+
+    return $('#FName').val().trim() !== '';
+  }
+});
+</script>
+
+</body>
+</html>
